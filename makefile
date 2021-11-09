@@ -1,16 +1,20 @@
-URL = "https://www.kaggle.com/mdhamani/goodreads-books-100k/download"
+URL := "https://www.kaggle.com/mdhamani/goodreads-books-100k/download"
 
-raw_folder = raw_data
-raw_data = goodreads_100k_books.csv
+raw_folder := raw_data
+raw_data := goodreads_100k_books.csv
+pages_script := clean_pages.py
+clean_folder := clean_data
+requirements := requirements.txt
 
-script = data_processing.py
+SITE_PACKAGES := $(shell pip show pip | grep '^Location' | cut -f2 -d':')
 
-clean_folder = clean_data
+.PHONY: $(pages_script)
 
-.PHONY: processing
+$(pages_script): install $(raw_folder)/$(raw_data) $(clean_folder) 
+	python $(pages_script)
 
-processing: $(raw_folder)/$(raw_data) $(clean_folder) $(script)
-	python $(script)
+install: $(requirements)
+	pip install -r $(requirements)
 
 $(clean_folder):
 	mkdir $@
