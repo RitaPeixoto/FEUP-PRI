@@ -10,7 +10,7 @@ from queue import Empty, Queue
 import signal
 import sys
 
-"""
+
 START_TIME = default_timer()
 CLEANR = re.compile('<.*?>')
 
@@ -134,7 +134,3 @@ def main():
     consumer.join()
 
 main()
-"""
-
-df = pd.DataFrame(data={'A': [1, 2, 3], 'B': [4, 5, 6]}, columns=['A', 'B'])
-df.to_csv('temp_data/reviews.csv')
