@@ -2,3 +2,4 @@ raw_data
 clean_data
 GoodReads_100k_books.csv
 *.csv
+solr/data/data.json
