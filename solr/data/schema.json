@@ -31,18 +31,60 @@
                     }
                 ]
             }
+        },
+        {
+            "name": "commaText",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
+                "tokenizer": {
+                    "class": "solr.PatternTokenizerFactory",
+                    "pattern": ","
+                },
+                "filters": [
+                    {
+                        "class": "solr.ASCIIFoldingFilterFactory",
+                        "preserveOriginal": true
+                    },
+                    {
+                        "class": "solr.LowerCaseFilterFactory"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "gramText",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
+                "tokenizer": {
+                    "class": "solr.StandardTokenizerFactory"
+                },
+                "filters": [
+                    {
+                        "class": "solr.ASCIIFoldingFilterFactory",
+                        "preserveOriginal": true
+                    },
+                    {
+                        "class": "solr.LowerCaseFilterFactory"
+                    },
+                    {
+                        "class": "solr.EdgeNGramFilterFactory",
+                        "minGramSize": "2",
+                        "maxGramSize": "5"
+                    }
+                ]
+            }
         }
     ],
     "add-field": [
         {
             "name": "author",
-            "type": "specialText",
+            "type": "commaText",
             "indexed": true,
             "stored": true
         },
         {
             "name": "bookformat",
-            "type": "specialText",
+            "type": "gramText",
             "indexed": true,
             "stored": true
         },
@@ -54,7 +96,7 @@
         },
         {
             "name": "genre",
-            "type": "specialText",
+            "type": "commaText",
             "indexed": true,
             "stored": true
         },
@@ -96,7 +138,7 @@
         },
         {
             "name": "title",
-            "type": "specialText",
+            "type": "gramText",
             "indexed": true,
             "stored": true
         },
