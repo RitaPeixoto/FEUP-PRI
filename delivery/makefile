@@ -7,10 +7,10 @@ requirements := requirements.txt
 
 SITE_PACKAGES := $(shell pip show pip | grep '^Location' | cut -f2 -d':')
 
-.PHONY: $(clean_folder)/schema.sql 
+.PHONY: $(clean_folder)/database.sql 
 
 # Create sql database 
-$(clean_folder)/schema.sql: $(clean_folder)/goodreads_clean.csv $(clean_folder)/final_reviews.csv
+$(clean_folder)/database.sql: $(clean_folder)/goodreads_clean.csv $(clean_folder)/final_reviews.csv
 	python create_schema.py
 
 # GoodReads book data processing
