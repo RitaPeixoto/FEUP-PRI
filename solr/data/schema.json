@@ -121,19 +121,19 @@
         {
             "name": "pages",
             "type": "pint",
-            "indexed": true,
+            "indexed": false,
             "stored": true
         },
         {
             "name": "rating",
             "type": "pfloat",
-            "indexed": true,
+            "indexed": false,
             "stored": true
         },
         {
             "name": "reviews",
             "type": "pint",
-            "indexed": true,
+            "indexed": false,
             "stored": true
         },
         {
@@ -145,13 +145,7 @@
         {
             "name": "totalratings",
             "type": "pint",
-            "indexed": true,
-            "stored": true
-        },
-        {
-            "name": "type",
-            "type": "string",
-            "indexed": true,
+            "indexed": false,
             "stored": true
         },
         {
