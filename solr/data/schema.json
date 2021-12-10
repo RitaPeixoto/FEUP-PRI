@@ -153,6 +153,12 @@
             "type": "specialText",
             "indexed": true,
             "stored": true
+        },
+        {
+            "name": "sentiment",
+            "type": "pint",
+            "indexed": false,
+            "stored": true
         }
     ]
 }
