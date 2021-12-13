@@ -1,38 +1,6 @@
 {
     "add-field-type": [
         {
-            "name": "specialText",
-            "class": "solr.TextField",
-            "indexAnalyzer": {
-                "tokenizer": {
-                    "class": "solr.StandardTokenizerFactory"
-                },
-                "filters": [
-                    {
-                        "class": "solr.ASCIIFoldingFilterFactory",
-                        "preserveOriginal": true
-                    },
-                    {
-                        "class": "solr.LowerCaseFilterFactory"
-                    }
-                ]
-            },
-            "queryAnalyzer": {
-                "tokenizer": {
-                    "class": "solr.StandardTokenizerFactory"
-                },
-                "filters": [
-                    {
-                        "class": "solr.ASCIIFoldingFilterFactory",
-                        "preserveOriginal": true
-                    },
-                    {
-                        "class": "solr.LowerCaseFilterFactory"
-                    }
-                ]
-            }
-        },
-        {
             "name": "commaText",
             "class": "solr.TextField",
             "indexAnalyzer": {
@@ -69,7 +37,7 @@
                     {
                         "class": "solr.EdgeNGramFilterFactory",
                         "minGramSize": "2",
-                        "maxGramSize": "5"
+                        "maxGramSize": "10"
                     }
                 ]
             }
@@ -90,7 +58,7 @@
         },
         {
             "name": "desc",
-            "type": "specialText",
+            "type": "text_general",
             "indexed": true,
             "stored": true
         },
@@ -121,19 +89,19 @@
         {
             "name": "pages",
             "type": "pint",
-            "indexed": false,
+            "indexed": true,
             "stored": true
         },
         {
             "name": "rating",
             "type": "pfloat",
-            "indexed": false,
+            "indexed": true,
             "stored": true
         },
         {
             "name": "reviews",
             "type": "pint",
-            "indexed": false,
+            "indexed": true,
             "stored": true
         },
         {
@@ -145,12 +113,6 @@
         {
             "name": "totalratings",
             "type": "pint",
-            "indexed": false,
-            "stored": true
-        },
-        {
-            "name": "review",
-            "type": "specialText",
             "indexed": true,
             "stored": true
         },
@@ -159,6 +121,20 @@
             "type": "pint",
             "indexed": false,
             "stored": true
+        },
+        {
+            "name": "positive_reviews",
+            "type": "text_general",
+            "indexed": true,
+            "stored": true,
+            "multiValued": true
+        },
+        {
+            "name": "negative_reviews",
+            "type": "text_general",
+            "indexed": true,
+            "stored": true,
+            "multiValued": true
         }
     ]
 }

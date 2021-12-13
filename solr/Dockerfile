@@ -1,8 +1,8 @@
 FROM solr:latest
 
-#COPY meic_courses.json /data/meic_courses.json
+#COPY /data/data_sample.json /data/data_sample.json
 
-#COPY simple_schema.json /data/simple_schema.json
+#COPY /data/schema.json /data/schema.json
 
 COPY startup.sh /scripts/startup.sh
 

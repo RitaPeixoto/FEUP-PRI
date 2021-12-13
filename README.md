@@ -11,7 +11,7 @@ To build the image, run `docker build . -t goodreads_solr` (where goodreads_solr
 
 ### Run
 
-To execute it, run `docker run --name goodreads_reviews -p 8983:8983 -v ${PWD}/data:/data --rm goodreads_solr` in _/solr_ folder.
+To execute it, run `docker run --name goodreads_info -p 8983:8983 -v ${PWD}/data:/data --rm goodreads_solr` in _/solr_ folder.
 
 
 ## Stop and delete container
