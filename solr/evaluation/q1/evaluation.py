@@ -37,15 +37,31 @@ for results, color in zip(results, colors):
     @metric
     def ap(results, relevant):
         """Average Precision"""
+
+        relevant_index = []
+        index = 0
+        for res in results:
+            if (i != 0 and res['link'] in relevant) or (i == 0 and res['link'][0] in relevant):
+                relevant_index.append(index)
+            index = index + 1
+
+        if len(relevant_index) == 0:
+            return 0
+
         precision_values = [
             len([
                 doc
                 for doc in results[:idx]
                 if (i != 0 and doc['link'] in relevant) or (i == 0 and doc['link'][0] in relevant)
             ]) / idx
-            for idx in range(1, len(results))
+            for idx in range(1, len(results) + 1)
         ]
-        return sum(precision_values)/len(precision_values)
+        
+        precision_sum = 0
+        for ind in relevant_index:
+            precision_sum = precision_sum + precision_values[ind]
+
+        return precision_sum/len(relevant_index)
 
     @metric
     def p10(results, relevant, n=10):
