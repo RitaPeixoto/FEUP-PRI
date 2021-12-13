@@ -136,6 +136,6 @@ handles, labels = disp.ax_.get_legend_handles_labels()
 
 # set the legend and the axes
 ax.legend(handles=handles, labels=labels, loc="best")
-ax.set_title("Precision-Recall curve of Query 1")
+ax.set_title("Precision-Recall curve of information retrieval 3")
 
 plt.savefig('precision_recall.png')
