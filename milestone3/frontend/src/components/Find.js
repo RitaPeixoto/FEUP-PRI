@@ -9,8 +9,8 @@ export default function Find() {
     >
       <h4 className="find-text">Find your perfect book!</h4>
       <h6 className="find-text">
-        Find any book you're looking for with our amazing search system{" "}
-        <a>here.</a>{" "}
+        Find any book you're looking for with our amazing search system
+        <a href="#search">here.</a>
       </h6>
     </Row>
   );
