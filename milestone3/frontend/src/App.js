@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { Button } from "react-bootstrap";
+import Home from './pages/Home';
+import './style/style.css';
 
 function App() {
     const [message, setMessage] = useState("");
@@ -13,10 +14,10 @@ function App() {
         });
     };
   return (
-    <div className="App">
-      <Button onClick={sendRequest}>CLICK ME</Button>
-      <p>{message}</p>
-    </div>
+    <>
+    <Home/>
+    </>
+    
   );
 }
 

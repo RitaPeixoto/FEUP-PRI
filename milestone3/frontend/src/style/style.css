@@ -1,0 +1,95 @@
+
+.nav-bar{
+    background-color: #fff9f3;
+    padding: 3%;
+}
+
+.brand{
+    color: #414b3b !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.img-fluid{
+    width: 130%;
+    height: auto;
+}
+
+.top-20{
+    background-color: #374f59;
+}
+
+.arrow-down{
+    position: absolute;
+    margin-top:-6rem;
+    margin-left: 50%;
+    color: #fff9f3;
+    opacity: 80%;
+}
+.arrow-down:hover{
+    color: #374f59;
+}
+
+.card-image{
+    object-fit: cover;
+    height: 100%;
+    color: #fff9f3;
+}
+.card{
+    border:0;
+}
+
+.card-img-overlay{
+    color: #fff9f3;
+}
+.gender, .bookformat{
+    background-color: #fff9f3;
+    height: 650px;
+}
+.gender{
+    text-align: center;
+}
+
+.top-20-title, .bookformat-title, .top-20-redirect{
+    color: #fff9f3;     
+    font-family: 'Poppins', sans-serif;
+}
+.bookformat-title, .top-20-redirect{
+    text-align: right;
+}
+.top-20-title{
+    text-align: center;
+}
+
+.woman-reading{
+    background-image: url('../assets/woman-reading.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: black;
+    height: 650px;
+    
+}
+
+.find{
+    background-image: url('https://pbs.twimg.com/media/EFCWZzDVAAASXr6?format=jpg&name=large');
+    height: 650px;
+    opacity: 0.7;
+}
+
+.find-text{
+    color:white;
+}
+
+.footer{
+    background-color: #94857b;
+    color:white;
+    align-items: center;
+    text-align: center;
+    height: 650px;
+}
+
+.footer-text{
+    color: #414b3b;     
+    font-family: 'Poppins', sans-serif;
+}
