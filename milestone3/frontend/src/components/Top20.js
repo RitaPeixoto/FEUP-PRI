@@ -6,7 +6,7 @@ export default function Top20() {
   const height = window.innerHeight;
   return (
     <Row
-      className="top-20 justify-content-center"
+      className="top-20 justify-content-center pb-5"
       id="top-20"
       style={{ height: { height } }}
     >
@@ -31,7 +31,7 @@ export default function Top20() {
         image="https://images-na.ssl-images-amazon.com/images/I/71VPGQoxPRL.jpg"
         number="0"
       />
-      <h3 className="top-20-redirect p-5" style={{ color: "white" }}>
+      <h3 className="top-20-redirect " style={{ color: "white" }}>
         {" "}
         Top 20 Books <MdPlayArrow size="3rem" />{" "}
       </h3>
