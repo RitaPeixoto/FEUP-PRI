@@ -7,15 +7,16 @@ import Find from "../components/Find.js";
 import Footer from "../components/Footer.js";
 
 export default function NavBar() {
-  return (
-    <>
-      <Navbar />
-      <MainImage />
-      <Top20 />
-      <BookFormat />
-      <Gender />
-      <Find />
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <Navbar/>
+            <div style={{overflowX: 'hidden'}}>
+                <MainImage/>
+                <Top20/>
+                <BookFormat/>
+                <Gender/>
+                <Find/>
+            </div>
+            <Footer/>
+        </>);
 }

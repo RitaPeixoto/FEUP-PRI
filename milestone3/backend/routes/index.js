@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/index');
 
-router.get('/', controller.test);
+router.get('/search', controller.getSearchResult);
+router.get('/filterInfo', controller.getFilterInfo);
+router.get('/:id', controller.getBookByID);
 
 module.exports = router;

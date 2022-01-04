@@ -13,15 +13,15 @@ curl -X POST -H 'Content-type:application/json' \
     --data-binary @/data/schema.json \
     http://localhost:8983/solr/goodreads/schema
 
-curl -X POST -H 'Content-type:application/json' \
-    --data-binary @/data/schema.json \
-    http://localhost:8983/solr/goodreads-sample/schema
+#curl -X POST -H 'Content-type:application/json' \
+#    --data-binary @/data/schema.json \
+#    http://localhost:8983/solr/goodreads-sample/schema
 
 # Populate collection
 bin/post -c goodreads /data/data.json
 
 # Populate collection
-bin/post -c goodreads-sample /data/data_sample.json
+#bin/post -c goodreads-sample /data/data_sample.json
 
 # Restart in foreground mode so we can access the interface
 solr restart -f

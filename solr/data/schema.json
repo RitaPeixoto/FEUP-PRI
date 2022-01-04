@@ -52,7 +52,7 @@
         },
         {
             "name": "bookformat",
-            "type": "gramText",
+            "type": "string",
             "indexed": true,
             "stored": true
         },
@@ -60,7 +60,8 @@
             "name": "desc",
             "type": "text_general",
             "indexed": true,
-            "stored": true
+            "stored": true,
+            "multiValued": false
         },
         {
             "name": "genre",

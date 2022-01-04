@@ -16,7 +16,7 @@ app.use(cors());
 
 const index = require('./routes/index');
 
-app.use('/test', index);
+app.use('/book', index);
 
 app.use((req, res, next) => {
     // Website you wish to allow to connect
