@@ -218,6 +218,15 @@
     margin: 0.2em;
 }
 
+.clear-filters {
+    cursor: pointer;
+    width: fit-content;
+}
+
+.clear-filters:hover {
+    text-decoration: underline;
+}
+
 .MuiAutocomplete-root {
     background-color: #fff9f3;
 }

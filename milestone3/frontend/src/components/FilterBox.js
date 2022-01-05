@@ -21,22 +21,31 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function FilterBox({title, filterType, options, step}) {
+export default function FilterBox({title, filterType, options, step, filters, setFilters}) {
     const [isOpen, setIsOpen] = useState(false);
 
     function valuetext(value) {
         return value;
     }
 
+    const sliderChange = (value) => {
+        setFilters(value);
+    }
+
+    const autocompleteChange = (value) => {
+        setFilters(value);
+    }
+
+
     const classes = useStyles();
     return (
         <div className="filter-box">
             <p className="filter-box-title" onClick={() => setIsOpen(!isOpen)}>{title}</p>
-            <ul className={`bookformat-list filter-box-items ${!isOpen ? "d-none" : ""}`}>
+            <div className={`filter-box-items ${!isOpen ? "d-none" : ""}`}>
                 {filterType === 'number' && (
                     <Slider
                         key={title}
-                        value={[options[0].value, options[1].value]}
+                        value={filters}
                         className="filter-slider"
                         getAriaValueText={valuetext}
                         min={options[0].value}
@@ -44,13 +53,16 @@ export default function FilterBox({title, filterType, options, step}) {
                         step={step}
                         valueLabelDisplay="auto"
                         marks={options}
+                        onChange={(event, value) => sliderChange(value)}
                     />
                 )}
                 {filterType === 'autocomplete' && (
                     <Autocomplete
                         multiple
-                        id="search-auotcomplete"
+                        id="search-autocomplete"
                         size="small"
+                        value={filters}
+                        onChange={(event, value) => autocompleteChange(value)}
                         options={options.sort((a, b) => -b.charAt(0).localeCompare(a.charAt(0)))}
                         groupBy={(option) => option.charAt(0)}
                         classes={classes}
@@ -64,7 +76,7 @@ export default function FilterBox({title, filterType, options, step}) {
                         )}
                     />
                 )}
-            </ul>
+            </div>
         </div>
     )
 }
