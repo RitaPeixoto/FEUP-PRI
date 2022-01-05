@@ -220,6 +220,7 @@
 
 .clear-filters {
     cursor: pointer;
+    font-size: 14px;
     width: fit-content;
 }
 
