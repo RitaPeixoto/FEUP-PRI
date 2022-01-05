@@ -29,9 +29,7 @@ export default function Search() {
 
     }, [])
 
-    const getResultList = (event, isSearching, pageNumber) => {
-        event.preventDefault();
-
+    const getResultList = (isSearching, pageNumber) => {
         let inputText;
         setIsLoading(true);
         if (isSearching) {
@@ -99,7 +97,7 @@ export default function Search() {
                         </Col>
                         <Col>
                             <Button className="search-button"
-                                    onClick={(event) => getResultList(event, true, 0)}>search</Button>
+                                    onClick={() => getResultList( true, 0)}>search</Button>
                         </Col>
                     </Form.Group>
                 </div>
@@ -126,7 +124,7 @@ export default function Search() {
                             <Col className="d-flex justify-content-end">
                                 {resultsNumber !== 0 && (
                                     <Pagination count={getTotalPages()}
-                                                onChange={(event, value) => getResultList(event, false, value - 1)}
+                                                onChange={(event, value) => getResultList(false, value - 1)}
                                                 showFirstButton
                                                 showLastButton shape="rounded"/>
                                 )}

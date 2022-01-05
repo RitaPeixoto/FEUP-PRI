@@ -35,7 +35,6 @@ async function getFilterInfo(req, res) {
 }
 
 async function getSearchResult(req, res) {
-
     const start = 20 * req.query.pageNumber;
     let params = new URLSearchParams();
 
