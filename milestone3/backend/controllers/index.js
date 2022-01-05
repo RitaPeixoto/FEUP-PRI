@@ -39,7 +39,7 @@ async function getSearchResult(req, res) {
         'q.op': 'AND',
         'wt': 'json',
         'defType': 'edismax',
-        'qf': 'title desc genre negative_reviews positive_reviews',
+        'qf': 'title desc negative_reviews positive_reviews',
         'rows': 20,
         'start': 20 * req.query.pageNumber
     };

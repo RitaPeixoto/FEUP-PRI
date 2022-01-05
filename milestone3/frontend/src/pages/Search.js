@@ -4,14 +4,15 @@ import {useEffect, useState} from "react";
 import FilterBox from "../components/FilterBox";
 import axios from "axios";
 import BookCard from "../components/BookCard";
+import {Box, CircularProgress, Pagination} from "@mui/material";
 
 export default function Search() {
     const [resultList, setResultList] = useState([]);
     const [resultsNumber, setResultsNumber] = useState(0);
     const [bookformatList, setBookformatList] = useState([]);
     const [genreList, setGenreList] = useState([]);
-    const pageNumber = 0;
-    let inputText = "";
+    const [isLoading, setIsLoading] = useState(false);
+    const [previousInput, setPreviousInput] = useState("");
 
     useEffect(() => {
         axios.get("http://localhost:3001/book/filterInfo", {params: {field: "genre"}}).then((res) => {
@@ -26,13 +27,30 @@ export default function Search() {
         })
     }, [])
 
-    const search = () => {
+    const getResultList = (event, isSearching, pageNumber) => {
+        event.preventDefault();
+
+        let inputText;
+        setIsLoading(true);
+        if (isSearching) {
+            const ele = document.getElementById('search-input');
+            inputText = ele.value;
+            setPreviousInput(inputText);
+        }
+        else
+            inputText = previousInput;
+
         axios.get(`http://localhost:3001/book/search`, {params: {inputText, pageNumber}}).then((res) => {
             setResultList(res.data.books);
             setResultsNumber(res.data.numFound);
+            setIsLoading(false);
         }).catch((error) => {
             console.error(error);
         });
+    }
+
+    const getTotalPages = () => {
+        return Math.round(resultsNumber / 20);
     }
 
     return (
@@ -45,10 +63,10 @@ export default function Search() {
                             What are you looking for?
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="text" onChange={(e) => inputText = e.target.value}/>
+                            <Form.Control type="text" id="search-input"/>
                         </Col>
                         <Col>
-                            <Button className="search-button" onClick={search}>search</Button>
+                            <Button className="search-button" onClick={(event) => getResultList(event, true, 0)}>search</Button>
                         </Col>
                     </Form.Group>
                 </div>
@@ -63,14 +81,33 @@ export default function Search() {
                                    step={10} filterType="number"/>
                     </Col>
                     <Col sm={8} className="search-body-col">
-                        <p> {resultsNumber} results </p>
-                        <Row className="search-results">
-                            {resultList.map((book) => (
-                                <Col xs={12} key={book.link}>
-                                    <BookCard book={book}/>
-                                </Col>
-                            ))}
+                        <Row>
+                            <Col>
+                                <p> {resultsNumber} results </p>
+                            </Col>
+                            <Col className="d-flex justify-content-end">
+                                {resultsNumber !== 0 && (
+                                    <Pagination count={getTotalPages()}
+                                                onChange={(event, value) => getResultList(event, false, value-1)} showFirstButton
+                                                showLastButton shape="rounded"/>
+                                )}
+                            </Col>
                         </Row>
+                        {isLoading ? (
+                                <Box sx={{display: 'flex'}}>
+                                    <CircularProgress color="inherit"/>
+                                </Box>
+                            ) :
+                            (
+                                <Row className="search-results">
+                                    {resultList.map((book) => (
+                                        <Col xs={12} key={book.link}>
+                                            <BookCard book={book}/>
+                                        </Col>
+                                    ))}
+                                </Row>
+                            )
+                        }
                     </Col>
                 </Row>
             </div>
