@@ -26,7 +26,7 @@ export default function Search() {
         }).catch((error) => {
             console.log(error);
         })
-
+        getResultList(false, 0);
     }, [])
 
     const getResultList = (isSearching, pageNumber) => {
