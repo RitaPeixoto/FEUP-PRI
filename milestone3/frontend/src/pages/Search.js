@@ -16,6 +16,7 @@ export default function Search() {
     const [previousInput, setPreviousInput] = useState("");
 
     useEffect(() => {
+        document.title = 'search';
         axios.get("http://localhost:3001/book/filterInfo", {params: {field: "genre"}}).then((res) => {
             setGenreList(res.data);
         }).catch((error) => {
@@ -93,7 +94,7 @@ export default function Search() {
                             What are you looking for?
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="text" id="search-input"/>
+                            <Form.Control type="text" id="search-input" spellCheck="true"/>
                         </Col>
                         <Col>
                             <Button className="search-button"
@@ -138,7 +139,7 @@ export default function Search() {
                             (
                                 <Row className="search-results">
                                     {resultList.map((book) => (
-                                        <Col xs={12} key={book.link}>
+                                        <Col xs={12} key={book.id}>
                                             <BookCard book={book}/>
                                         </Col>
                                     ))}

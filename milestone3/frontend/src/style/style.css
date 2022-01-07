@@ -2,7 +2,7 @@
 
 .nav-bar {
     background-color: #fff9f3;
-    padding: 3%;
+    padding: 2em 3em 2em 6em;
 }
 
 .brand {
@@ -297,3 +297,8 @@
     font-size: 14px;
 }
 
+/********************************************* BOOK PAGE ************************************************************/
+
+.book-page {
+    margin: 2em 5em 2em 5em;
+}

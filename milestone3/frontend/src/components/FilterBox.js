@@ -3,11 +3,6 @@ import {Autocomplete, Slider, TextField} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        "& .MuiAutocomplete-root": {
-            backgroundColor: "red"
-        }
-    },
     inputRoot: {
         "& .MuiOutlinedInput-notchedOutline": {
             border: "none"

@@ -1,6 +1,21 @@
 const solr = require('../config');
 
 async function getBookByID(req, res) {
+    const id = req.params.id;
+    const params = {
+        "q": `id:${id}`,
+        "indent": "true",
+        "q.op": "AND",
+    };
+
+    solr.get('/select', {params: params})
+        .then(function (resp) {
+            return res.status(200).send(resp.data.response.docs[0]);
+        })
+        .catch((error) => {
+            console.log(error);
+            return res.status(400).json('Something went wrong!');
+        })
 
 }
 
@@ -31,6 +46,7 @@ async function getFilterInfo(req, res) {
         })
         .catch((error) => {
             console.log(error);
+            return res.status(400).json('Something went wrong!');
         })
 }
 
@@ -44,7 +60,7 @@ async function getSearchResult(req, res) {
     params.append('q.op', 'AND');
     params.append('wt', 'json');
     params.append('defType', 'edismax');
-    params.append('qf', 'title desc negative_reviews positive_reviews');
+    params.append('qf', 'title desc author negative_reviews positive_reviews');
     params.append('rows', '20');
     params.append('start', start.toString());
 
@@ -77,7 +93,7 @@ async function getSearchResult(req, res) {
         })
         .catch((error) => {
             console.log(error);
-            return res.status(400).json('Something wrong happen!');
+            return res.status(400).json('Something went wrong!');
         })
 }
 

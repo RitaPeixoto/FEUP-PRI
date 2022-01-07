@@ -1,7 +1,7 @@
 #!/bin/sh
 
 precreate-core goodreads
-precreate-core goodreads-sample
+# precreate-core goodreads-sample
 
 # Start Solr in background mode so we can use the API to upload the schema
 solr start
