@@ -26,13 +26,13 @@ export default function Book() {
             <div className="book-page">
                 <Row className="g-0">
                     <Col sm={4} className="d-flex justify-content-center">
-                        <img src={book.img} alt="" />
+                        <img src={book.img} alt=""/>
                     </Col>
                     <Col>
                         <h2>{book.title}</h2>
                         <p>by {book.author}</p>
                         <p>{book.desc}</p>
-                        <Divider />
+                        <Divider/>
                         <Row>
                             <Col>
                                 <Rating

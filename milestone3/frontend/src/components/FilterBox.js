@@ -23,14 +23,9 @@ export default function FilterBox({title, filterType, options, step, filters, se
         return value;
     }
 
-    const sliderChange = (value) => {
-        setFilters(value);
+    const handleChange = (value) => {
+        setFilters(title, value);
     }
-
-    const autocompleteChange = (value) => {
-        setFilters(value);
-    }
-
 
     const classes = useStyles();
     return (
@@ -48,7 +43,7 @@ export default function FilterBox({title, filterType, options, step, filters, se
                         step={step}
                         valueLabelDisplay="auto"
                         marks={options}
-                        onChange={(event, value) => sliderChange(value)}
+                        onChange={(event, value) => handleChange(value)}
                     />
                 )}
                 {filterType === 'autocomplete' && (
@@ -57,7 +52,7 @@ export default function FilterBox({title, filterType, options, step, filters, se
                         id="search-autocomplete"
                         size="small"
                         value={filters}
-                        onChange={(event, value) => autocompleteChange(value)}
+                        onChange={(event, value) => handleChange(value)}
                         options={options.sort((a, b) => -b.charAt(0).localeCompare(a.charAt(0)))}
                         groupBy={(option) => option.charAt(0)}
                         classes={classes}

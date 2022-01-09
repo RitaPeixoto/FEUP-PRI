@@ -237,6 +237,10 @@
     overflow-y: auto;
 }
 
+.search-icon {
+    cursor: pointer;
+}
+
 /********************************************* Book card ************************************************************/
 
 .search-bookcard {
@@ -295,6 +299,10 @@
     padding-top: 0;
     margin-top: 0;
     font-size: 14px;
+}
+
+.search-accordion-summary {
+    width: 100% !important;
 }
 
 /********************************************* BOOK PAGE ************************************************************/

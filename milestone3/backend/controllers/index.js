@@ -60,9 +60,22 @@ async function getSearchResult(req, res) {
     params.append('q.op', 'AND');
     params.append('wt', 'json');
     params.append('defType', 'edismax');
-    params.append('qf', 'title desc author negative_reviews positive_reviews');
     params.append('rows', '20');
     params.append('start', start.toString());
+
+    const fields = ['title', 'desc', 'author', 'positive_reviews', 'negative_reviews'];
+
+    if (req.query.weights === undefined || req.query.weights === []) params.append('qf', fields.join(' '));
+    else {
+        const w = 10 / req.query.weights.length;
+        let qf = "";
+        for (let field of fields) {
+            qf += ` ${field}`;
+            if (req.query.weights.includes(field)) qf += `^${w}`;
+        }
+        console.log(qf);
+        params.append('qf', qf);
+    }
 
     if (req.query.bookformats && req.query.bookformats !== []) {
         for (const bf of req.query.bookformats) {

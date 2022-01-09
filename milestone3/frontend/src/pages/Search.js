@@ -1,19 +1,28 @@
 import Navbar from "../components/Navbar";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import FilterBox from "../components/FilterBox";
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import {Box, CircularProgress, Pagination} from "@mui/material";
+import SearchBar from "../components/SearchBar";
 
 export default function Search() {
     const [resultList, setResultList] = useState([]);
     const [resultsNumber, setResultsNumber] = useState(0);
     const [bookformatList, setBookformatList] = useState([]);
     const [filters, setFilters] = useState({bookformats: [], genres: [], rating: [0, 5], pages: [0, 700]});
+    const [weights, setWeights] = useState({
+        title: {label: 'Title', checked: false},
+        desc: {label: 'Description', checked: false},
+        author: {label: 'Author', checked: false},
+        positive_reviews: {label: 'Positive Reviews', checked: false},
+        negative_reviews: {label: 'Negative Reviews', checked: false},
+    });
     const [genreList, setGenreList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [previousInput, setPreviousInput] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         document.title = 'search';
@@ -33,6 +42,7 @@ export default function Search() {
     const getResultList = (isSearching, pageNumber) => {
         let inputText;
         setIsLoading(true);
+        setCurrentPage(pageNumber + 1);
         if (isSearching) {
             const ele = document.getElementById('search-input');
             inputText = ele.value.replace(/ +(?= )/g, '');
@@ -41,6 +51,12 @@ export default function Search() {
         } else
             inputText = previousInput;
 
+        let weight = [];
+
+        for (let key in weights) {
+            if (weights[key].checked) weight.push(key);
+        }
+
         axios.get(`http://localhost:3001/book/search`, {
             params: {
                 inputText,
@@ -48,7 +64,8 @@ export default function Search() {
                 bookformats: filters.bookformats,
                 genres: filters.genres,
                 rating: filters.rating,
-                pages: filters.pages
+                pages: filters.pages,
+                weights: weight
             }
         }).then((res) => {
             setResultList(res.data.books);
@@ -67,21 +84,8 @@ export default function Search() {
         setFilters({bookformats: [], genres: [], rating: [0, 5], pages: [0, 700]});
     }
 
-    const setGenreFilters = (values) => {
-        setFilters({...filters, genres: values});
-    }
-
-    const setBookformatFilters = (values) => {
-        console.log(values);
-        setFilters({...filters, bookformats: values});
-    }
-
-    const setRatingFilters = (values) => {
-        setFilters({...filters, rating: values});
-    }
-
-    const setPagesFilters = (values) => {
-        setFilters({...filters, pages: values});
+    const updateFilters = (key, value) => {
+        setFilters({...filters, [key]: value});
     }
 
     return (
@@ -89,31 +93,20 @@ export default function Search() {
             <Navbar/>
             <div className="search-page">
                 <div className="search-bar-section">
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="3" className="search-bar-label">
-                            What are you looking for?
-                        </Form.Label>
-                        <Col sm="8">
-                            <Form.Control type="text" id="search-input" spellCheck="true"/>
-                        </Col>
-                        <Col>
-                            <Button className="search-button"
-                                    onClick={() => getResultList( true, 0)}>search</Button>
-                        </Col>
-                    </Form.Group>
+                    <SearchBar getResultList={getResultList} weights={weights} setWeights={setWeights}/>
                 </div>
                 <Row className="search-page-body g-0">
                     <Col sm={4} className="search-body-col">
                         <p> Filter results </p>
-                        <FilterBox title="genre" options={genreList} filters={filters.genres}
-                                   setFilters={setGenreFilters} filterType="autocomplete"/>
-                        <FilterBox title="bookformat" options={bookformatList} filters={filters.bookformats}
-                                   setFilters={setBookformatFilters} filterType="autocomplete"/>
+                        <FilterBox title="genres" options={genreList} filters={filters.genres}
+                                   setFilters={updateFilters} filterType="autocomplete"/>
+                        <FilterBox title="bookformats" options={bookformatList} filters={filters.bookformats}
+                                   setFilters={updateFilters} filterType="autocomplete"/>
                         <FilterBox title="rating" options={[{value: 0, label: '0'}, {value: 5, label: '5'}]}
-                                   filters={filters.rating} setFilters={setRatingFilters} step={0.1}
+                                   filters={filters.rating} setFilters={updateFilters} step={0.1}
                                    filterType="number"/>
                         <FilterBox title="pages" options={[{value: 0, label: '0'}, {value: 700, label: '700+'}]}
-                                   filters={filters.pages} setFilters={setPagesFilters}
+                                   filters={filters.pages} setFilters={updateFilters}
                                    step={10} filterType="number"/>
                         <p className="clear-filters" onClick={clearFilters}>Clear filters</p>
                     </Col>
@@ -125,6 +118,7 @@ export default function Search() {
                             <Col className="d-flex justify-content-end">
                                 {resultsNumber !== 0 && (
                                     <Pagination count={getTotalPages()}
+                                                page={currentPage}
                                                 onChange={(event, value) => getResultList(false, value - 1)}
                                                 showFirstButton
                                                 showLastButton shape="rounded"/>

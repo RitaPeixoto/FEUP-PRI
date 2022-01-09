@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Card, Col, Row} from "react-bootstrap";
 import {Rating} from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
