@@ -23,10 +23,10 @@ curl -X POST -H 'Content-type:application/json'  -d '{
     "class": "solr.SuggestComponent",
     "suggester": {
         "name": "mySuggester",
-        "lookupImpl": "AnalyzingInfixLookupFactory",
+        "lookupImpl": "FreeTextLookupFactory",
         "dictionaryImpl": "DocumentDictionaryFactory",
-        "field": "suggest",
-        "suggestAnalyzerFieldType": "text_suggest",
+        "field": "desc",
+        "suggestFreeTextAnalyzerFieldType": "text_general",
         "buildOnStartup": "true"
     }
   }
@@ -40,7 +40,7 @@ curl -X POST -H 'Content-type:application/json'  -d '{
         "defaults": {
             "suggest": true,
             "suggest.count": 10,
-            "suggest.dictionary": "mySuggester",
+            "suggest.dictionary": "mySuggester"
         },
         "components": [
             "suggest"
