@@ -1,7 +1,21 @@
 const solr = require('../config');
 
 async function getBookByID(req, res) {
+    const id = req.params.id;
+    const params = {
+        "q": `id:${id}`,
+        "indent": "true",
+        "q.op": "AND",
+    };
 
+    solr.get('/select', {params: params})
+        .then(function (resp) {
+            return res.status(200).send(resp.data.response.docs[0]);
+        })
+        .catch((error) => {
+            console.log(error);
+            return res.status(400).json('Something went wrong!');
+        })
 }
 
 async function getFilterInfo(req, res) {
@@ -31,6 +45,7 @@ async function getFilterInfo(req, res) {
         })
         .catch((error) => {
             console.log(error);
+            return res.status(400).json('Something went wrong!');
         })
 }
 
@@ -44,9 +59,21 @@ async function getSearchResult(req, res) {
     params.append('q.op', 'AND');
     params.append('wt', 'json');
     params.append('defType', 'edismax');
-    params.append('qf', 'title desc negative_reviews positive_reviews');
     params.append('rows', '20');
     params.append('start', start.toString());
+
+    const fields = ['title', 'desc', 'author', 'positive_reviews', 'negative_reviews'];
+
+    if (req.query.weights === undefined || req.query.weights === []) params.append('qf', fields.join(' '));
+    else {
+        const w = 10 / req.query.weights.length;
+        let qf = "";
+        for (let field of fields) {
+            qf += ` ${field}`;
+            if (req.query.weights.includes(field)) qf += `^${w}`;
+        }
+        params.append('qf', qf);
+    }
 
     if (req.query.bookformats && req.query.bookformats !== []) {
         for (const bf of req.query.bookformats) {
@@ -77,7 +104,7 @@ async function getSearchResult(req, res) {
         })
         .catch((error) => {
             console.log(error);
-            return res.status(400).json('Something wrong happen!');
+            return res.status(400).json('Something went wrong!');
         })
 }
 

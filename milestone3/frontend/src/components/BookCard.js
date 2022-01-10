@@ -1,9 +1,11 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import {Card, Col, Row} from "react-bootstrap";
 import {Rating} from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
 
 export default function BookCard({book}) {
+    const navigate = useNavigate();
 
     const getAuthors = () => {
         return book.author.replaceAll(',', ', ');
@@ -14,7 +16,7 @@ export default function BookCard({book}) {
     }
 
     return (
-        <Card className="mb-3 search-bookcard">
+        <Card className="mb-3 search-bookcard" onClick={() => navigate(`/book/${book.id}`)}>
             <Row className="g-0">
                 <Col lg={2} xs={3}>
                     <img className="card-img" height="250" src={book.img} alt={book.title}/>

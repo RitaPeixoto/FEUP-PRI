@@ -2,7 +2,7 @@
 
 .nav-bar {
     background-color: #fff9f3;
-    padding: 3%;
+    padding: 2em 3em 2em 6em;
 }
 
 .brand {
@@ -237,6 +237,10 @@
     overflow-y: auto;
 }
 
+.search-icon {
+    cursor: pointer;
+}
+
 /********************************************* Book card ************************************************************/
 
 .search-bookcard {
@@ -297,3 +301,12 @@
     font-size: 14px;
 }
 
+.search-accordion-summary {
+    width: 100% !important;
+}
+
+/********************************************* BOOK PAGE ************************************************************/
+
+.book-page {
+    margin: 2em 5em 2em 5em;
+}
