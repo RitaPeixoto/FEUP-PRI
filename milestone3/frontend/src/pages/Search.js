@@ -88,6 +88,10 @@ export default function Search() {
         setFilters({...filters, [key]: value});
     }
 
+    useEffect(() => {
+        getResultList(false, 0);
+    }, [filters]);
+
     return (
         <>
             <Navbar/>

@@ -16,7 +16,6 @@ async function getBookByID(req, res) {
             console.log(error);
             return res.status(400).json('Something went wrong!');
         })
-
 }
 
 async function getFilterInfo(req, res) {
@@ -73,7 +72,6 @@ async function getSearchResult(req, res) {
             qf += ` ${field}`;
             if (req.query.weights.includes(field)) qf += `^${w}`;
         }
-        console.log(qf);
         params.append('qf', qf);
     }
 
