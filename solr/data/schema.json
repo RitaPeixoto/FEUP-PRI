@@ -154,6 +154,12 @@
             "type": "text_general",
             "indexed": true,
             "stored": true
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "indexed": false,
+            "stored": true
         }
     ]
 }
