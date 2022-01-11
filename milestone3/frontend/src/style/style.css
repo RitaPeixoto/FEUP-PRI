@@ -321,6 +321,10 @@
     text-decoration: none
 }
 
+.book-page .more:hover{
+    cursor: pointer
+}
+
 .info-card {
     color: #fff9f3;
     background-color: #414b3b;

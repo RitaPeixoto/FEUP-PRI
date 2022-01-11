@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
-import { Divider, Rating } from "@mui/material";
+import { Divider } from "@mui/material";
 import { FaHashtag } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 import ReviewCard from "../components/ReviewCard.js";
@@ -11,6 +11,8 @@ import BookInfoCard from "../components/BookInfoCard";
 
 export default function Book() {
   const [book, setBook] = useState({});
+  const [fullDesc, setFullDesc] = useState(false);
+  const [reviews, setReviews] = useState([]);
   const location = useLocation();
   const author = "by Lisa Sachs";
   const title = "The cats' book of romance";
@@ -29,6 +31,7 @@ export default function Book() {
   const img_source = "https://images-na.ssl-images-amazon.com/images/I/51T50JQECKL.jpg"
 
 
+
   useEffect(() => {
     const bookId = location.pathname.replace("/book/", "");
     axios
@@ -40,8 +43,22 @@ export default function Book() {
       .catch((error) => {
         console.log(error);
       });
+
+      let reviews = []
+      for (let i = 0; i<=4; i++){
+        reviews.push(text)
+      }
+      
+      setReviews(reviews)
     
   }, []);
+
+  const seeMoreDesc = () => {
+    setFullDesc(true)
+  }
+  const seeLessDesc = () => {
+    setFullDesc(false)
+  }
 
   return (
     <>
@@ -61,14 +78,23 @@ export default function Book() {
           <Col>
             <h2>{title}</h2>
             <h6 className="author">{author}</h6>
-            <div className="mt-4">
+            <div className={`mt-4 ${fullDesc? "d-none":"d-flex"} `}>
               <p>
                 {smallDesc}
-                <a className="more" href="">
+                <a className="more" onClick={seeMoreDesc}>
                   {" "}
                   see more...
                 </a>
               </p>
+            </div>
+            <div className={`mt-4  ${fullDesc? "d-flex":"d-none"} `} >
+              <p>{text}
+                <a className="more" onClick={seeLessDesc}>
+                    {" "}
+                    see less...
+                  </a>
+              </p>
+              
             </div>
             <Divider className="my-4" />
             <Row>
@@ -82,22 +108,22 @@ export default function Book() {
                 </p>
               </div>
               <Col>
-                <Row className="justify-content-center d-flex">
+                <Row className="justify-content-center align-items-center d-flex">
                   <Col md={2}>
                     {" "}
-                    <FaHashtag size="1rem" /> {n_ratings} ratings
+                    <FaHashtag size="1rem" className="mb-1" /> <span>{n_ratings} ratings</span>
                   </Col>
                   <Col md={2}>
                     {" "}
-                    <FaHashtag size="1rem" /> {n_reviews} reviews
+                    <FaHashtag size="1rem" className="mb-1"/> <span>{n_reviews} reviews</span>
                   </Col>
                 </Row>
               </Col>
             </Row>
-            <ReviewCard text={text}/>
-            <ReviewCard text={text}/>
-            <ReviewCard text={text}/>
-            <ReviewCard text={text}/>
+            {reviews.map((item)=>{
+              return <ReviewCard text={item}/>
+            })}
+  
           </Col>
         </Row>
       </div>
