@@ -136,6 +136,30 @@
             "indexed": true,
             "stored": true,
             "multiValued": true
+        },
+        {
+            "name": "author_name",
+            "type": "text_general",
+            "indexed": true,
+            "stored": true
+        },
+        {
+            "name": "author_image",
+            "type": "string",
+            "indexed": true,
+            "stored": true
+        },
+        {
+            "name": "author_description",
+            "type": "text_general",
+            "indexed": true,
+            "stored": true
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "indexed": false,
+            "stored": true
         }
     ]
 }

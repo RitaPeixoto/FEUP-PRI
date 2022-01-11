@@ -310,3 +310,43 @@
 .book-page {
     margin: 2em 5em 2em 5em;
 }
+
+.book-page .author{
+    color: #829676
+}
+
+.book-page .more{
+    font-weight: bold;
+    color: #414b3b; 
+    text-decoration: none
+}
+
+.book-page .more:hover{
+    cursor: pointer
+}
+
+.info-card {
+    color: #fff9f3;
+    background-color: #414b3b;
+}
+
+.review-card{
+    background-color: #829676;
+    color: #fff9f3
+}
+
+.rating-value{
+    font-size: '25px'
+}
+
+.book-page h2{
+    text-transform: uppercase;
+}
+
+.book-page .rating{
+    font-size: "25px"
+}
+
+.book-page .star-rating{
+    color: #b3cda4
+}

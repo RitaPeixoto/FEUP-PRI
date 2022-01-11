@@ -49,7 +49,7 @@ curl -X POST -H 'Content-type:application/json'  -d '{
 }' http://localhost:8983/solr/goodreads/config
 
 # Populate collection
-bin/post -c goodreads /data/data.json
+bin/post -c goodreads /data/new_data.json
 
 # Populate collection
 #bin/post -c goodreads-sample /data/data_sample.json
