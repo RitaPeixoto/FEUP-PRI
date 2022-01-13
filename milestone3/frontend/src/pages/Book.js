@@ -38,7 +38,6 @@ export default function Book() {
       .get(`http://localhost:3001/book/${bookId}`)
       .then((res) => {
         setBook(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);

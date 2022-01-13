@@ -3,3 +3,4 @@ clean_data
 *.csv
 solr/data/data.json
 solr/data/data_init.json
+solr/data/data_without_authors.json

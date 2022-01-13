@@ -23,10 +23,10 @@ curl -X POST -H 'Content-type:application/json'  -d '{
     "class": "solr.SuggestComponent",
     "suggester": {
         "name": "mySuggester",
-        "lookupImpl": "FreeTextLookupFactory",
+        "lookupImpl": "FuzzyLookupFactory",
         "dictionaryImpl": "DocumentDictionaryFactory",
-        "field": "desc",
-        "suggestFreeTextAnalyzerFieldType": "text_general",
+        "field": "title",
+        "suggestAnalyzerFieldType": "text_general",
         "buildOnStartup": "true"
     }
   }
@@ -39,7 +39,7 @@ curl -X POST -H 'Content-type:application/json'  -d '{
         "startup": "lazy",
         "defaults": {
             "suggest": true,
-            "suggest.count": 10,
+            "suggest.count": 15,
             "suggest.dictionary": "mySuggester"
         },
         "components": [
@@ -49,7 +49,7 @@ curl -X POST -H 'Content-type:application/json'  -d '{
 }' http://localhost:8983/solr/goodreads/config
 
 # Populate collection
-bin/post -c goodreads /data/new_data.json
+bin/post -c goodreads /data/data.json
 
 # Populate collection
 #bin/post -c goodreads-sample /data/data_sample.json

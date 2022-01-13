@@ -107,20 +107,15 @@
         },
         {
             "name": "title",
-            "type": "gramText",
+            "type": "text_general",
             "indexed": true,
-            "stored": true
+            "stored": true,
+            "multiValued": false
         },
         {
             "name": "totalratings",
             "type": "pint",
             "indexed": true,
-            "stored": true
-        },
-        {
-            "name": "sentiment",
-            "type": "pint",
-            "indexed": false,
             "stored": true
         },
         {

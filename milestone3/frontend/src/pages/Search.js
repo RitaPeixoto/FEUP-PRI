@@ -44,7 +44,7 @@ export default function Search() {
         setIsLoading(true);
         setCurrentPage(pageNumber + 1);
         if (isSearching) {
-            const ele = document.getElementById('search-input');
+            const ele = document.querySelector('.rbt-input-main');  
             inputText = ele.value.replace(/ +(?= )/g, '');
             if (inputText === " ") inputText = "";
             setPreviousInput(inputText);

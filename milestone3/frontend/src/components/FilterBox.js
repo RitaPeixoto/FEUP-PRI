@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Autocomplete, Slider, TextField} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     inputRoot: {
         "& .MuiOutlinedInput-notchedOutline": {
             border: "none"
@@ -35,7 +35,7 @@ export default function FilterBox({title, filterType, options, step, filters, se
                 {filterType === 'number' && (
                     <Slider
                         key={title}
-                        value={filters}
+                        defaultValue={[options[0].value, options[1].value]}
                         className="filter-slider"
                         getAriaValueText={valuetext}
                         min={options[0].value}
@@ -43,7 +43,7 @@ export default function FilterBox({title, filterType, options, step, filters, se
                         step={step}
                         valueLabelDisplay="auto"
                         marks={options}
-                        onChange={(event, value) => handleChange(value)}
+                        onChangeCommitted={(event, value) => handleChange(value)}
                     />
                 )}
                 {filterType === 'autocomplete' && (

@@ -6,16 +6,43 @@ async function getBookByID(req, res) {
         "q": `id:${id}`,
         "indent": "true",
         "q.op": "AND",
-    };
+    }; 
 
     solr.get('/select', {params: params})
-        .then(function (resp) {
+        .then(function (resp) {   
             return res.status(200).send(resp.data.response.docs[0]);
         })
-        .catch((error) => {
+        .catch((error) => {  
             console.log(error);
             return res.status(400).json('Something went wrong!');
         })
+}
+
+async function getSuggestions(req, res) {
+    const input = req.query.input;
+    if(input === '') return res.status(200).send([]);
+
+    const params = {
+        "q": input,
+        "indent": "true",
+        "q.op": "AND",
+    };
+      
+    solr.get('/suggest', {params: params}).then((resp) => {
+        const fK = Object.values(resp.data)[1];
+        const items = Object.values(Object.values(fK)[0])[0];
+        const suggestions = items.suggestions;
+
+        const it = [];
+        for (let s of suggestions) {
+            it.push(s.term);
+        }
+        return res.status(200).send(it);
+    })
+    .catch((error) => {
+        console.log(error);
+        return res.status(400).json('Something went wrong!');
+    })
 }
 
 async function getFilterInfo(req, res) {
@@ -112,4 +139,5 @@ module.exports = {
     getBookByID,
     getSearchResult,
     getFilterInfo,
+    getSuggestions,
 };

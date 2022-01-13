@@ -241,6 +241,11 @@
     cursor: pointer;
 }
 
+.rbt-input-main:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
 /********************************************* Book card ************************************************************/
 
 .search-bookcard {
