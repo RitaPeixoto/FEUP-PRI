@@ -14,9 +14,11 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(cors());
 
-const index = require('./routes/index');
+const book_index = require('./routes/book');
+app.use('/book', book_index);
 
-app.use('/book', index);
+const author_index = require('./routes/author');
+app.use('/author', author_index);
 
 app.use((req, res, next) => {
     // Website you wish to allow to connect
