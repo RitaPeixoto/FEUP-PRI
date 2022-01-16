@@ -10,7 +10,7 @@ export default function BookInfoCard({ isbn, genres, bookformat, pages }) {
         <b>ISBN: </b> {isbn}
       </p>
       <p>
-        <b>Genres: </b> {genres.join(", ")}
+        <b>Genres: </b> {genres}
       </p>
       <p>
         <b>Book format: </b> {bookformat}

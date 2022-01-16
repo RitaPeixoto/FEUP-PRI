@@ -277,6 +277,10 @@
     overflow: hidden;
 }
 
+.author-card.card-desc {
+    -webkit-line-clamp: var(--line-clamp, 6);
+}
+
 .search-bookcard .card-authors, .search-bookcard .card-genres {
     font-family: Arial, serif;
     font-weight: normal;

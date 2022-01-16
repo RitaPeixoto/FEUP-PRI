@@ -10,27 +10,13 @@ import ReviewCard from "../components/ReviewCard.js";
 import BookInfoCard from "../components/BookInfoCard";
 
 export default function Book() {
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState(undefined);
   const [fullDesc, setFullDesc] = useState(false);
-  const [reviews, setReviews] = useState([]);
   const location = useLocation();
-  const author = "by Lisa Sachs";
-  const title = "The cats' book of romance";
-  const description =
-    "Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now!";
-  const smallDesc = description.substr(0, 740);
-  const text =
-    "Award-winning poet Norman Ornelas is dropping by on March 10, 7PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7 PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now! Award-winning poet Norman Ornelas is dropping by on March 10, 7PM. He will be reading from his new collection, Spring, and signing copies. Buy tickets now!";
-  const isbn = "012457845914";
-  const genres = ["Animals", "cats"];
-  const bookformat = "Hardcover";
-  const pages = 550;
-  const rating = 4.56;
-  const n_ratings = 8;
-  const n_reviews = 159;
-  const img_source = "https://images-na.ssl-images-amazon.com/images/I/51T50JQECKL.jpg"
 
-
+  const getAuthors = () => {
+    return book.author.replaceAll(',', ', ');
+  }
 
   useEffect(() => {
     const bookId = location.pathname.replace("/book/", "");
@@ -41,15 +27,7 @@ export default function Book() {
       })
       .catch((error) => {
         console.log(error);
-      });
-
-      let reviews = []
-      for (let i = 0; i<=4; i++){
-        reviews.push(text)
-      }
-      
-      setReviews(reviews)
-    
+      });   
   }, []);
 
   const seeMoreDesc = () => {
@@ -63,23 +41,24 @@ export default function Book() {
     <>
       <Navbar />
       <div className="book-page">
+        {book !== undefined && (
         <Row className="g-0">
           <Col sm={4} className=" justify-content-center">
             <Row>
               <img
-                src={img_source}
+                src={book.img}
                 alt=""
                 style={{"width":"20rem", "height": "25rem"}}
               />
             </Row>
-            <BookInfoCard isbn={isbn} genres={genres} bookformat={bookformat} pages={pages}/>
+            <BookInfoCard isbn={book.isbn} genres={book.genres} bookformat={book.bookformat} pages={book.pages}/>
           </Col>
           <Col>
-            <h2>{title}</h2>
-            <h6 className="author">{author}</h6>
+            <h2>{book.title}</h2>
+            <h6 className="author">by {getAuthors()}</h6>
             <div className={`mt-4 ${fullDesc? "d-none":"d-flex"} `}>
               <p>
-                {smallDesc}
+                {book.desc.substr(0, 740)}
                 <a className="more" onClick={seeMoreDesc}>
                   {" "}
                   see more...
@@ -87,7 +66,7 @@ export default function Book() {
               </p>
             </div>
             <div className={`mt-4  ${fullDesc? "d-flex":"d-none"} `} >
-              <p>{text}
+              <p>{book.desc}
                 <a className="more" onClick={seeLessDesc}>
                     {" "}
                     see less...
@@ -103,28 +82,31 @@ export default function Book() {
                     className="mb-1 star-rating"
                     size="2rem"
                   />
-                  {rating}
+                  {book.rating}
                 </p>
               </div>
               <Col>
                 <Row className="justify-content-center align-items-center d-flex">
                   <Col md={2}>
                     {" "}
-                    <FaHashtag size="1rem" className="mb-1" /> <span>{n_ratings} ratings</span>
+                    <FaHashtag size="1rem" className="mb-1" /> <span>{book.totalratings} ratings</span>
                   </Col>
                   <Col md={2}>
                     {" "}
-                    <FaHashtag size="1rem" className="mb-1"/> <span>{n_reviews} reviews</span>
+                    <FaHashtag size="1rem" className="mb-1"/> <span>{book.reviews} reviews</span>
                   </Col>
                 </Row>
               </Col>
             </Row>
-            {reviews.map((item)=>{
-              return <ReviewCard text={item}/>
+            {book.positive_reviews && book.positive_reviews.map((item, index)=>{
+              return <ReviewCard key={`positive-${index}`} text={item} positive={true} />
             })}
-  
+            {book.negative_reviews && book.negative_reviews.map((item, index)=>{
+              return <ReviewCard key={`positive-${index}`} text={item} positive={false} />
+            })}
           </Col>
         </Row>
+        )}
       </div>
     </>
   );
