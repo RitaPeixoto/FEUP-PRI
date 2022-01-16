@@ -14,6 +14,20 @@ import {
   MenuItem,
 } from "@mui/material";
 import SearchBar from "../components/SearchBar";
+import { makeStyles, createStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    select: {
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "none",
+      },
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: "none",
+      },
+    },
+  })
+);
 
 export default function Search() {
   const [resultList, setResultList] = useState([]);
@@ -151,6 +165,7 @@ export default function Search() {
     getResultList(false, 0);
   }, [filters, viewOption]);
 
+  const classes = useStyles();
   return (
     <>
       <Navbar />
@@ -211,7 +226,11 @@ export default function Search() {
                 <span> {resultsNumber} results </span>
               </Col>
               <Col sm={2}>
-                <Select value={viewOption} onChange={handleViewChange}>
+                <Select
+                  className={classes.select}
+                  value={viewOption}
+                  onChange={handleViewChange}
+                >
                   <MenuItem value="show" disabled>
                     show
                   </MenuItem>
