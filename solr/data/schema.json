@@ -149,7 +149,7 @@
         {
             "name": "author_image",
             "type": "string",
-            "indexed": true,
+            "indexed": false,
             "stored": true
         },
         {
