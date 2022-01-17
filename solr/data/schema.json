@@ -107,6 +107,13 @@
         },
         {
             "name": "title",
+            "type": "gramText",
+            "indexed": true,
+            "stored": true,
+            "multiValued": false
+        },
+        {
+            "name": "title_suggest",
             "type": "text_general",
             "indexed": true,
             "stored": true,
@@ -136,19 +143,21 @@
             "name": "author_name",
             "type": "text_general",
             "indexed": true,
-            "stored": true
+            "stored": true,
+            "multiValued": false
         },
         {
             "name": "author_image",
             "type": "string",
-            "indexed": true,
+            "indexed": false,
             "stored": true
         },
         {
             "name": "author_description",
             "type": "text_general",
             "indexed": true,
-            "stored": true
+            "stored": true,
+            "multiValued": false
         },
         {
             "name": "type",
@@ -156,5 +165,9 @@
             "indexed": false,
             "stored": true
         }
-    ]
+    ],
+    "add-copy-field": {
+        "source": "title",
+        "dest": "title_suggest"
+    }
 }

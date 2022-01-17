@@ -8,6 +8,8 @@ solr start
 
 sleep 10
 
+cp /data/synonyms.txt /var/solr/data/goodreads/conf
+
 # Schema definition via API
 curl -X POST -H 'Content-type:application/json' \
     --data-binary @/data/schema.json \
@@ -25,12 +27,14 @@ curl -X POST -H 'Content-type:application/json'  -d '{
         "name": "mySuggester",
         "lookupImpl": "FuzzyLookupFactory",
         "dictionaryImpl": "DocumentDictionaryFactory",
-        "field": "title",
+        "field": "title_suggest",
         "suggestAnalyzerFieldType": "text_general",
+        "exactMatchFirst": "true",
         "buildOnStartup": "true"
     }
   }
 }' http://localhost:8983/solr/goodreads/config
+
 
 curl -X POST -H 'Content-type:application/json'  -d '{
   "add-requesthandler": {
@@ -39,7 +43,7 @@ curl -X POST -H 'Content-type:application/json'  -d '{
         "startup": "lazy",
         "defaults": {
             "suggest": true,
-            "suggest.count": 15,
+            "suggest.count": 20,
             "suggest.dictionary": "mySuggester"
         },
         "components": [

@@ -46,7 +46,6 @@ export default function SearchBar({ getResultList, weights, setWeights }) {
   };
 
   const getSuggestionsList = (input) => {
-
     axios
       .get(`http://localhost:3001/book/suggest`, {
         params: {
@@ -99,9 +98,9 @@ export default function SearchBar({ getResultList, weights, setWeights }) {
         </Col>
       </Row>
       <Accordion.Collapse eventKey="0">
-        <Row>
+        <Row className="mt-2 d-flex align-items-center">
           <Col>
-            <p>Dar pesos a: </p>
+            <h6>Prioritize: </h6>
           </Col>
           {Object.keys(weights).map((item) => (
             <Col key={item}>

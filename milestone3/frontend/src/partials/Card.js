@@ -1,16 +1,18 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 import {Card, Col} from "react-bootstrap";
 
 export default function BookCard({id, title, number, image}) {
-
-    const width = number === "0" ? "18rem" : "12rem";
+    const navigate = useNavigate();
+    const width = number === "0" ? "13rem" : "12rem";
     const height = number === "0" ? "auto" : "12rem";
 
     return (
         <Card
             card-id={id}
-            className="bookcard m-4"
-            style={{width: width, height: height, padding: "0"}}
+            className="bookcard m-4 mt-1"
+            style={{width: width, height: height, padding: "0", cursor: 'pointer'}}
+            onClick={() => navigate(`/book/${id}`)}
         >
             <Card.Img className="card-image" variant="top" src={image}/>
             {title !== undefined ? (
