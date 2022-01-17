@@ -53,7 +53,6 @@ export default function Search() {
   const [viewOption, setViewOption] = useState("book");
 
   useEffect(() => {
-    document.title = "search";
     axios
       .get("http://localhost:3001/book/filterInfo", {
         params: { field: "genre" },
